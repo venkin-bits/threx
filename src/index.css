@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. DEFINE SAFE AREA VARIABLES (For Notches & Home Bars) */
+:root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+}
+
+/* 2. GLOBAL MOBILE RESET */
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Prevents the 'elastic' bounce of the whole page */
+  overscroll-behavior-y: none; /* Disables pull-to-refresh effect */
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100dvh; /* Use Dynamic Viewport Height for mobile browsers */
+  width: 100vw;
+  overflow-y: auto; /* Let the React App scroll, not the body */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* Smooth momentum scrolling */
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc; /* Match your bg-slate-50 */
+}
+
+/* 3. REMOVE WEB INTERACTIONS */
+* {
+  /* Disable Blue Tap Highlight on Android/iOS */
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Disable Text Selection (Makes it feel like an App) */
+  user-select: none;
+  -webkit-user-select: none;
+  
+  /* Remove long-press menus (Context Menu) */
+  -webkit-touch-callout: none;
+}
+
+/* Re-enable text selection for inputs only */
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* 4. UTILITY CLASSES FOR SAFE AREAS */
+/* Adds padding for the Notch (Top) */
+.pt-safe {
+  padding-top: var(--sat);
+}
+/* Adds padding for the Home Bar (Bottom) */
+.pb-safe {
+  padding-bottom: var(--sab);
+}
+
+/* 5. CUSTOM SCROLLBAR (Hidden for cleaner look) */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* ... existing code ... */
+
+/* ADD THESE AT THE BOTTOM */
+@keyframes bounce-slight {
+  0%, 100% { transform: translateY(-5%); }
+  50% { transform: translateY(5%); }
+}
+
+.animate-bounce-slight {
+  animation: bounce-slight 2s infinite ease-in-out;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
